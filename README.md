@@ -1,1 +1,1 @@
-# gp-calculator
+# gpa-calculator
