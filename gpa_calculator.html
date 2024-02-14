@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPA Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #d8a692;
+    }
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #1fe1e7; /* Cream color */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    input[type="number"] {
+        width: 80px;
+        padding: 8px;
+        margin: 5px 0;
+        box-sizing: border-box;
+        border: 1px solid #e9bfbf;
+        border-radius: 5px;
+        transition: border-color 0.3s ease;
+    }
+    input[type="number"]:focus {
+        outline: none;
+        border-color: #4CAF50;
+    }
+    input[type="button"], input[type="submit"] {
+        background-color: #007bff;
+        color: rgba(15, 15, 15, 0.849);
+        padding: 10px 20px;
+        border: blue;
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    input[type="button"]:hover, input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    #result {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #007bff;
+        font-size: 1.2em;
+        animation: fadeIn 0.5s ease;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+</head>
+<body>
+
+<form id="gpaCalculator">
+    <label for="semester">Choose Semester:</label>
+    <select id="semester" name="semester">
+        <option value="1">Semester 1</option>
+        
+        <!-- Add more semester options as needed -->
+    </select>
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Credits</th>
+        </tr>
+        <tr>
+            <td>Subject 1</td>
+            <td><input type="number" name="credit1" min="0" max="10" required></td>
+        </tr>
+        <tr>
+            <td>Subject 2</td>
+            <td><input type="number" name="credit2" min="0" max="10" required></td>
+        </tr>
+        <tr>
+            <td>Subject 3</td>
+            <td><input type="number" name="credit3" min="0" max="10" required></td>
+        </tr>
+        <tr>
+            <td>Subject 4</td>
+            <td><input type="number" name="credit4" min="0" max="10" required></td>
+        </tr>
+        <tr>
+            <td>Subject 5</td>
+            <td><input type="number" name="credit5" min="0" max="10" required></td>
+        </tr>
+        <tr>
+            <td>Subject 6</td>
+            <td><input type="number" name="credit6" min="0" max="10" required></td>
+        </tr>
+    </table>
+    <input type="button" value="Calculate GPA" onclick="calculateGPA()">
+</form>
+
+<div id="result"></div>
+
+<script>
+    function calculateGPA() {
+        var totalGradePoints = 0;
+        var totalCredits = 0;
+
+        for (var i = 1; i <= 6; i++) {
+            var credit = parseFloat(document.getElementsByName("credit" + i)[0].value);
+            if (!isNaN(credit) && credit > 0) {
+                totalCredits += credit;
+                var grade = parseFloat(prompt("Enter grade for subject " + i + ":"));
+                if (!isNaN(grade) && grade >= 0 && grade <= 4) {
+                    totalGradePoints += (grade * credit);
+                } else {
+                    alert("Please enter a valid grade between 0 and 4.");
+                    return;
+                }
+            } else {
+                alert("Please enter a valid credit value for subject " + i + ".");
+                return;
+            }
+        }
+
+        var gpa = totalGradePoints / totalCredits;
+        document.getElementById("result").innerHTML = "Your GPA for Semester " + document.getElementById("semester").value + " is: " + gpa.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
